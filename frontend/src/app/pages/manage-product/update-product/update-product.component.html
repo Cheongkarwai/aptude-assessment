@@ -1,0 +1,20 @@
+<div *ngIf="product$ | async as product" class="p-4 w-100">
+  <form class="w-100">
+    <div class="form-group">
+      <app-input [control]="nameControl" label="product name" placeholder="Product Name" />
+    </div>
+    <div class="form-group">
+      <app-input [control]="categoryControl" label="product category" placeholder="Product Category" />
+    </div>
+    <div class="form-group">
+      <app-input [control]="brandControl" label="product brand" placeholder="Product Brand" />
+    </div>
+    <div class="form-group">
+      <app-input [control]="typeControl" label="product type" placeholder="Product Type" />
+    </div>
+    <div class="form-group">
+      <app-textarea [control]="descriptionControl" label="description" placeholder="Description" />
+    </div>
+    <button type="submit" (click)="update($event)" mat-stroked-button>Update</button>
+  </form>
+</div>

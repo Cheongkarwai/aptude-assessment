@@ -1,0 +1,68 @@
+<div class="row p-3">
+  <div class="col-md-12 col-lg-12 col-sm-12">
+    <div class="d-flex justify-content-end align-items-end">
+      <button mat-flat-button (click)="openCreateProductModal()">
+        <mat-icon fontIcon="add"></mat-icon>
+        Create</button>
+    </div>
+    <div class="d-flex justify-content-center align-items-center pt-5 flex-column">
+      <ng-container *ngIf="productPageable$ | async as productPageable">
+        <table class="table table-responsive-md border">
+          <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Code</th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+            <th scope="col">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr  *ngFor="let product of productPageable.content; let i = index;">
+            <th scope="row">{{productPageable.number * productPageable.size + i + 1}}</th>
+            <td>{{product.code}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.brand}}</td>
+            <td>{{product.type}}</td>
+            <td>{{product.description}}</td>
+            <td class="d-flex gap-2">
+              <button mat-flat-button (click)="openUpdateProductDialog(product.code)">
+              Edit</button>
+              <button mat-flat-button (click)="deleteProduct(product.code)">
+                Delete</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center gap-2">
+          <button mat-flat-button (click)="changePage(0)">
+            First
+          </button>
+          <button mat-flat-button [disabled]="productPageable.first" (click)="prevPage(productPageable)">
+            Previous
+          </button>
+          Current Page
+{{productPageable.number}}
+          <button mat-flat-button [disabled]="productPageable.last" (click)="nextPage(productPageable)">
+            Next
+          </button>
+          <button mat-flat-button (click)="changePage(productPageable.totalPages - 1)">
+           Last
+          </button>
+          <mat-form-field color="accent">
+            <mat-label>Page Size</mat-label>
+            <mat-select [formControl]="pageSizeControl">
+              <mat-option [value]="10">10</mat-option>
+              <mat-option [value]="25">25</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
